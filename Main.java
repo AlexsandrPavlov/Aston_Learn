@@ -1,44 +1,45 @@
+import java.util.*;
+
 public class Main {
-
     public static void main(String[] args) {
+        String[] words = {"текст1", "текст1", "текст1", "текст1", "текст2", "текст1", "текст6", "текст5", "текст3", "текст3", "текст3", "текст3", "текст3", "текст3", "текст4", "текст3", "текст3", "текст3", "текст2", "текст2", "текст2"};
 
-        String[][] arr = new String[][]{{"1", "9", "2", "7"}, {"в", "8", "а", "3"}, {"1", "5", "2", "2"}, {"6", "7", "9", "1"}};
-        try {
-            try {
-                int result = method(arr);
-                System.out.println(result);
-            } catch (MyArraySizeException e) {
-                System.out.println("Размер массива неверен");
-            }
-        }
-        catch (MyArrayDataException e) {
-            System.out.println("Неправильное значение массива!");
-            System.out.println("Ошибка в ячейке: " + e.i + "x" + e.j);
-        }
+        System.out.println("Слово : количество таких слов в списке:");
+        countUnique(words);
 
+
+        Phonebook phonebook = new Phonebook();
+        phonebook.add("Павлов", "+7 999 999-99-99");
+        phonebook.add("Павлов", "+7 999 999-99-99");
+        phonebook.add("Павлов", "+7 999 999-99-99");
+        phonebook.add("Козлов", "+7 111 111-11-11");
+        phonebook.add("Павлов", "+7 999 999-99-99");
+        phonebook.add("Павлов", "+7 999 999-99-99");
+        phonebook.add("Козлов", "+7 111 111-11-11");
+        phonebook.add("Любов", "+7 222 222-22-22");
+        phonebook.add("Любов", "+7 222 222-22-22");
+
+        System.out.println("\n\nТелефонный справочник.");
+        System.out.println("Фамилия : номер(а):");
+        phonebook.show();
     }
 
-
-    public static int method(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-        int count = 0;
-        if (arr.length != 4) {
-            throw new MyArraySizeException();
+    private static void countUnique(String[] words) {
+        Map<String, Integer> numberOfWords = new LinkedHashMap<>();
+        for (String word : words) {
+            countWord(numberOfWords, word);
         }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].length != 4) {
-                throw new MyArraySizeException();
-            }
-            for (int j = 0; j < arr[i].length; j++) {
-                try {
-                    count = count + Integer.parseInt(arr[i][j]);
-                }
-                catch (NumberFormatException e) {
-                    throw new MyArrayDataException(i, j);
-                }
-            }
-
+        for (String word: numberOfWords.keySet()) {
+            System.out.println(word + " : " + numberOfWords.get(word) + ".");
         }
-        return count;
     }
 
+    private static void countWord(Map<String, Integer> numberOfWords, String word) {
+        if (numberOfWords.containsKey(word)) {
+            numberOfWords.put(word, numberOfWords.get(word) + 1);
+        }
+        else {
+            numberOfWords.put(word,1);
+        }
+    }
 }
