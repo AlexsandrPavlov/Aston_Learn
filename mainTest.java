@@ -1,27 +1,19 @@
-import org.testng.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class mainTest {
+class mainTest {
 
-    @org.testng.annotations.Test
-    public void testCalculateFactorialForZero() {
-        Assert.assertEquals(main.calculateFactorial(0),1);
+    @org.junit.jupiter.api.Test
+    void calculateFactorialForZero() {
+        assertEquals(1,main.calculateFactorial(0));
     }
-    @org.testng.annotations.Test
-    public void testCalculateFactorialForPositiveNumber(){
-        Assert.assertEquals(main.calculateFactorial(5),120);
+    @org.junit.jupiter.api.Test
+    void  calculateFactorialForPositiveNumber(){
+        assertEquals(1,main.calculateFactorial(1));
+        assertEquals(2,main.calculateFactorial(2));
+        assertEquals(5040,main.calculateFactorial(7));
     }
-    @org.testng.annotations.Test
-    public void testCalculateFactorialForNegativeNumber(){
-        try {
-            main.calculateFactorial(-1);
-            Assert.fail("вызов IllegalArgumentException");
-
-        }catch (IllegalArgumentException e ){
-
-        }
-    }
-
-    @org.testng.annotations.Test
-    public void testCalculateFactorial() {
+    @org.junit.jupiter.api.Test
+    void calculateFactorialForNegetiveNumber(){
+        assertThrows(IllegalArgumentException.class, ()-> main.calculateFactorial(-1));
     }
 }
